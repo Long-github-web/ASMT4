@@ -1,15 +1,11 @@
 <?php
 session_start();
-
 // Khởi tạo biến thông báo lỗi
 $login_error = null;
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     include 'db.php';
-
     $username = trim($_POST['username']);
     $password = $_POST['password'];
-
     if (empty($username) || empty($password)) {
         $login_error = "Vui lòng nhập đầy đủ thông tin.";
     } else {
@@ -18,40 +14,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
-
         if ($result->num_rows === 1) {
             $user = $result->fetch_assoc();
-
             if (password_verify($password, $user['Password'])) {
                 // ĐĂNG NHẬP THÀNH CÔNG
                 // Lưu thông tin vào session
                 $_SESSION['userid'] = $user['UserID'];
                 $_SESSION['username'] = $user['Username'];
                 $_SESSION['role'] = (int)$user['Role'];
-
-                // === LOGIC MỚI: XỬ LÝ "REMEMBER ME" ===
                 if (isset($_POST['remember_me'])) {
                     // 1. Tạo các token an toàn
                     $selector = bin2hex(random_bytes(16));
                     $validator = bin2hex(random_bytes(32));
-                    
                     // 2. Mã hóa validator trước khi lưu vào DB
-                    $validator_hash = password_hash($validator, PASSWORD_DEFAULT);
-                    
+                    $validator_hash = password_hash($validator, PASSWORD_DEFAULT);      
                     // 3. Đặt cookie (thời hạn 30 ngày)
                     // Cookie chứa selector và validator chưa mã hóa
                     setcookie('remember_me_selector', $selector, time() + (86400 * 30), "/");
                     setcookie('remember_me_validator', $validator, time() + (86400 * 30), "/");
-
                     // 4. Lưu selector và validator đã mã hóa vào DB
                     $updateTokenStmt = $conn->prepare("UPDATE User SET remember_token_selector = ?, remember_token_validator_hash = ? WHERE UserID = ?");
                     $updateTokenStmt->bind_param("ssi", $selector, $validator_hash, $user['UserID']);
                     $updateTokenStmt->execute();
                     $updateTokenStmt->close();
                 }
-                // === KẾT THÚC LOGIC MỚI ===
-
-                // Điều hướng theo vai trò
                 if ($_SESSION['role'] === 2) {
                     header("Location: admin_dashboard.php");
                 } else {
@@ -70,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,16 +94,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form class="space-y-5" action="login.php" method="POST">
       <input type="text" name="username" placeholder="Username" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-primary" required autofocus />
       <input type="password" name="password" placeholder="Password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-primary" required />
-      
-      <!-- === CHECKBOX MỚI: "REMEMBER ME" === -->
       <div class="flex items-center">
           <input type="checkbox" name="remember_me" id="remember_me" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
           <label for="remember_me" class="ml-2 block text-sm text-gray-900">
               Remember pass
           </label>
       </div>
-      <!-- === KẾT THÚC CHECKBOX MỚI === -->
-
       <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-blue-700 transition">Login</button>
     </form>
 
