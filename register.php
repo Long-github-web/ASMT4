@@ -100,11 +100,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     };
   </script>
 </head>
-
 <body class="bg-register-bg bg-cover bg-center text-secondary font-[Inter] flex items-center justify-center min-h-screen py-10">
-  
   <?php if ($success_message): ?>
-    <!-- KHỐI CODE BỊ THIẾU ĐÃ ĐƯỢC THÊM LẠI -->
     <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div class="bg-white p-8 rounded-lg shadow-xl text-center">
         <h3 class="text-2xl font-bold text-green-600 mb-4">Thành công!</h3>
