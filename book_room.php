@@ -64,11 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
 </head>
 <body class="bg-[#0f172a] min-h-screen flex items-center justify-center font-[Inter] px-4">
-
     <?php if ($error_message !== null): ?>
-        <!-- ============================================= -->
-        <!-- ===== KHỐI HIỂN THỊ LỖI THÂN THIỆN (MỚI) ===== -->
-        <!-- ============================================= -->
         <div class="bg-[#1e293b] p-8 rounded-2xl w-full max-w-md shadow-lg text-center text-white">
             <div class="text-red-500 text-6xl mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -84,9 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
     <?php else: ?>
-        <!-- ============================================== -->
-        <!-- ===== FORM THANH TOÁN (GIỮ NGUYÊN NHƯ CŨ) ===== -->
-        <!-- ============================================== -->
         <form action="process_payment.php" method="POST" class="bg-[#1e293b] p-8 rounded-2xl w-full max-w-md shadow-lg space-y-6 text-white">
             <h1 class="text-3xl font-bold text-center">💳 Thanh toán</h1>
 
