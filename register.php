@@ -1,7 +1,6 @@
 <?php
 // Bắt đầu session ngay từ đầu tệp
 session_start();
-
 // Khởi tạo các biến để chứa thông báo
 $success_message = null;
 $error_message = null;
