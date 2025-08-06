@@ -50,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $login_error = "Tên đăng nhập hoặc mật khẩu không chính xác.";
         }
-
         $stmt->close();
         $conn->close();
     }
