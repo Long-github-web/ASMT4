@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Thêm logic xóa token trong DB trước khi hủy session
+// Xóa token trong DB trước khi hủy session
 if (isset($_SESSION['userid'])) {
     include 'db.php';
     $userid = $_SESSION['userid'];
@@ -10,7 +10,6 @@ if (isset($_SESSION['userid'])) {
     $stmt->execute();
     $stmt->close();
 }
-
 // Xóa cookie bằng cách đặt thời gian hết hạn trong quá khứ
 if (isset($_COOKIE['remember_me_selector'])) {
     setcookie('remember_me_selector', '', time() - 3600, '/');
@@ -18,7 +17,6 @@ if (isset($_COOKIE['remember_me_selector'])) {
 if (isset($_COOKIE['remember_me_validator'])) {
     setcookie('remember_me_validator', '', time() - 3600, '/');
 }
-
 session_unset();
 session_destroy();
 header("location: codeweb.php");
