@@ -10,14 +10,14 @@ if (!isset($_SESSION['userid']) || (int)$_SESSION['role'] !== 2) {
 
 $current_admin_id = (int)$_SESSION['userid'];
 
-// === PHẦN XỬ LÝ HÀNH ĐỘNG (Cập nhật vai trò / Xóa) ===
+// PHẦN XỬ LÝ HÀNH ĐỘNG (Cập nhật vai trò / Xóa)
 
 // 1. Xử lý Cập nhật vai trò
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_role'])) {
     $user_id_to_update = (int)$_POST['user_id'];
     $new_role = (int)$_POST['role'];
 
-    // QUAN TRỌNG: Ngăn admin thay đổi vai trò của chính mình
+    // Ngăn admin thay đổi vai trò của chính mình
     if ($user_id_to_update !== $current_admin_id) {
         if ($new_role === 1 || $new_role === 2) { // Chỉ chấp nhận vai trò hợp lệ
             $stmt = $conn->prepare("UPDATE User SET Role = ? WHERE UserID = ?");
@@ -34,19 +34,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_role'])) {
 if (isset($_GET['delete_id']) && is_numeric($_GET['delete_id'])) {
     $user_id_to_delete = (int)$_GET['delete_id'];
 
-    // QUAN TRỌNG: Ngăn admin tự xóa chính mình
+    // Ngăn admin tự xóa chính mình
     if ($user_id_to_delete !== $current_admin_id) {
-        // Trước khi xóa User, cần xử lý các bản ghi liên quan (ví dụ: Booking)
-        // Cách 1: Xóa các booking của họ
+        // Trước khi xóa User, cần xử lý các bản ghi liên quan
         $stmt_delete_bookings = $conn->prepare("DELETE FROM Booking WHERE UserID = ?");
         $stmt_delete_bookings->bind_param("i", $user_id_to_delete);
         $stmt_delete_bookings->execute();
         $stmt_delete_bookings->close();
 
-        // Cách 2 (an toàn hơn trong thực tế): Gán booking cho một user "đã xóa" hoặc set UserID = NULL
-        // Ở đây ta dùng cách 1 cho đơn giản.
-
-        // Sau đó xóa User
         $stmt_delete_user = $conn->prepare("DELETE FROM User WHERE UserID = ?");
         $stmt_delete_user->bind_param("i", $user_id_to_delete);
         $stmt_delete_user->execute();
@@ -56,7 +51,7 @@ if (isset($_GET['delete_id']) && is_numeric($_GET['delete_id'])) {
     exit();
 }
 
-// === PHẦN LẤY DỮ LIỆU ĐỂ HIỂN THỊ ===
+// PHẦN LẤY DỮ LIỆU ĐỂ HIỂN THỊ
 $users = [];
 $query = "SELECT UserID, Username, Email, Role, CreatedAt FROM User ORDER BY CreatedAt DESC";
 $result = $conn->query($query);
