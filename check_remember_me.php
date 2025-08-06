@@ -1,11 +1,6 @@
 <?php
-// Tệp này sẽ được include, không cần session_start() ở đây
-
-// Chỉ kiểm tra nếu người dùng chưa có session và có cookie
 if (!isset($_SESSION['userid']) && isset($_COOKIE['remember_me_selector']) && isset($_COOKIE['remember_me_validator'])) {
-    
-    include_once 'db.php'; // Dùng include_once để tránh lỗi nếu db.php đã được nạp
-
+    include_once 'db.php';
     $selector = $_COOKIE['remember_me_selector'];
     $validator = $_COOKIE['remember_me_validator'];
 
