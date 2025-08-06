@@ -1,7 +1,6 @@
 <?php
 session_start();
 include 'db.php'; // Kết nối database
-
 // === PHẦN KIỂM TRA QUYỀN ===
 if (!isset($_SESSION['userid']) || $_SESSION['role'] !== 2) {
     header("Location: login.php");
