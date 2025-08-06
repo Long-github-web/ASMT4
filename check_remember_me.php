@@ -3,7 +3,6 @@ if (!isset($_SESSION['userid']) && isset($_COOKIE['remember_me_selector']) && is
     include_once 'db.php';
     $selector = $_COOKIE['remember_me_selector'];
     $validator = $_COOKIE['remember_me_validator'];
-
     // 1. Tìm người dùng dựa trên selector
     $query = "SELECT * FROM User WHERE remember_token_selector = ?";
     $stmt = $conn->prepare($query);
