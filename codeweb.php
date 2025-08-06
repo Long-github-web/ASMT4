@@ -112,7 +112,6 @@ $heroImages = [
     </div>
 </section>
 <!-- Search Form Section -->
-<!-- Search Form Section -->
 <section id="search-form" class="py-16 bg-gray-900">
   <div class="max-w-4xl mx-auto px-4">
     <h2 class="text-3xl font-bold text-center text-white mb-8">Find Your Perfect Stay</h2>
@@ -123,7 +122,7 @@ $heroImages = [
   <select name="room_type" class="px-4 py-2 rounded bg-gray-800 text-white border border-gray-700">
     <option value="">All Room Types</option>
     <?php
-      // PHP để lấy danh sách loại phòng vẫn ở đây
+      // PHP để lấy danh sách loại phòng
       include 'db.php';
       $typeResult = $conn->query("SELECT UniqueID, TypeName FROM RoomType");
       while ($row = $typeResult->fetch_assoc()) {
@@ -320,7 +319,6 @@ $heroImages = [
             }
         }
 
-        // BÂY GIỜ MỚI CHO TRANG HIỆN RA
         document.body.classList.remove('is-loading');
 
         // GÁN SỰ KIỆN SCROLL MƯỢT CHO CÁC LINK NEO
@@ -460,4 +458,5 @@ document.addEventListener("DOMContentLoaded", function () {
 </footer>
 <!-- END Footer Section -->
 </body>
+
 </html>
