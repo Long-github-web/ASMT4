@@ -1,7 +1,6 @@
 <?php
 session_start();
 include 'db.php';
-
 // Kiểm tra quyền Admin
 if (!isset($_SESSION['userid']) || (int)$_SESSION['role'] !== 2) {
     header("Location: login.php");
