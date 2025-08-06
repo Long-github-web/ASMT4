@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 // Xóa token trong DB trước khi hủy session
 if (isset($_SESSION['userid'])) {
     include 'db.php';
