@@ -3,7 +3,6 @@ $servername = "localhost";     // máy chủ MySQL, mặc định là localhost
 $username = "root";            // tài khoản mặc định của XAMPP
 $password = "";                // mặc định không có mật khẩu trong XAMPP
 $dbname = "hotel2";             // tên database đã đặt
-
 // Tạo kết nối
 $conn = new mysqli($servername, $username, $password, $dbname);
 
