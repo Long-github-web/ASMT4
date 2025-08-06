@@ -7,10 +7,6 @@ if (!isset($_SESSION['userid']) || (int)$_SESSION['role'] !== 2) {
     header("Location: login.php");
     exit();
 }
-
-// === PHẦN XỬ LÝ HÀNH ĐỘNG (Phê duyệt / Hủy) ===
-// Chúng ta sẽ dùng phương thức GET để xử lý cho đơn giản
-
 // 1. Xử lý Phê duyệt
 if (isset($_GET['approve_id']) && is_numeric($_GET['approve_id'])) {
     $booking_id_to_approve = (int)$_GET['approve_id'];
@@ -33,9 +29,6 @@ if (isset($_GET['decline_id']) && is_numeric($_GET['decline_id'])) {
     header("Location: approve_bookings.php");
     exit();
 }
-
-
-// === PHẦN LẤY DỮ LIỆU ĐỂ HIỂN THỊ ===
 $bookings = [];
 // Câu lệnh JOIN để lấy thông tin từ nhiều bảng (Booking, User, Room)
 $query = "
