@@ -37,13 +37,11 @@ if ($result) {
 <head>
   <meta charset="UTF-8" />
   <title>View Feedback - HotelLux</title>
-  <!-- (Copy phần head từ các trang admin khác) -->
 </head>
 <body class="bg-secondary text-gray-300 font-[Inter]">
 <div class="flex h-screen">
   <!-- Sidebar -->
   <aside class="w-64 bg-gray-900 p-6 space-y-6">
-    <!-- (Copy sidebar từ các trang admin khác, thêm link tới admin_feedback.php) -->
   </aside>
 
   <!-- Main Content -->
