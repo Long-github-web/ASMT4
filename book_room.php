@@ -1,7 +1,6 @@
 <?php
 session_start();
 include 'db.php';
-
 // Khởi tạo các biến để chứa kết quả hoặc lỗi
 $error_message = null;
 
